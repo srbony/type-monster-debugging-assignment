@@ -28,8 +28,10 @@ const typeController = (e) => {
   // Handle backspace press
   if (newLetter == "Backspace") {
     userText = userText.slice(0, userText.length - 1);
+    errorCount++;
     return display.removeChild(display.lastChild);
   }
+  //
 
   // these are the valid character we are allowing to type
   const validLetters =
@@ -107,10 +109,9 @@ const start = () => {
 
   let count = 3;
   countdownOverlay.style.display = "flex";
-
-
   const startCountdown = setInterval(() => {
     countdownOverlay.innerHTML = `<h1>${count}</h1>`;
+
 
 
     // finished timer
@@ -119,12 +120,14 @@ const start = () => {
       document.addEventListener("keydown", typeController);
       countdownOverlay.style.display = "flex";
       display.classList.remove("inactive");
+      countdownOverlay.style.display = "none";
 
 
       clearInterval(startCountdown);
       startTime = new Date().getTime();
     }
     count--;
+
   }, 1000);
 };
 
